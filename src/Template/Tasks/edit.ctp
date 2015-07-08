@@ -30,6 +30,7 @@
             echo $this->Form->input('notification_type');
             echo $this->Form->input('notification_value');
             echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
+            echo $this->Form->input('status');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

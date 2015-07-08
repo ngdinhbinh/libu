@@ -15,7 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-
+use Cake\Event\Event;
 /**
  * Application Controller
  *
@@ -68,4 +68,7 @@ class AppController extends Controller
 	{
             return false;
 	}
+        public function beforeRender(Event $event){
+            $this->set('userData', $this->Auth->user());
+        }
 }

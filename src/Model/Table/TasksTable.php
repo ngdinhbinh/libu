@@ -74,6 +74,9 @@ class TasksTable extends Table
             
         $validator
             ->allowEmpty('notification_value');
+            
+        $validator
+            ->allowEmpty('status');
 
         return $validator;
     }

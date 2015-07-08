@@ -2545,7 +2545,7 @@ button.close {
 /*  Bootstrap Pagination */
 /*----------------------------------------------------------------------------------- */
 .pagination {
-  margin: 12px 0; }
+  margin: 0; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   background-color: #007aff; }
@@ -3701,3 +3701,5 @@ body.fourofour {
     ul.timeline.animated li.active:nth-child(odd) .timeline-content {
       left: 0; } }
 .actions.columns{display:none !important; }
+.pagination>li a{margin-right: 5px;}
+.pagination>li:last-child a{margin-right: 0;}

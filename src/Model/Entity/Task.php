@@ -24,6 +24,7 @@ class Task extends Entity
         'notification_type' => true,
         'notification_value' => true,
         'user_id' => true,
+        'status' => true,
         'project' => true,
         'user' => true,
         'comments' => true,

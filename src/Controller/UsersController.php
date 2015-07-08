@@ -123,4 +123,9 @@ class UsersController extends AppController
 	{
 		$this->Auth->allow(['add']);
 	}
+        
+        public function getPublishUser(){
+            $query = $this->Users->find()->where( ['Users.status' => 'active' ] )->order(['Users.firstname' =>'ASC']);
+            return $query->toArray();
+        }
 }

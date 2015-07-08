@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\UsersController;
+use App\Controller\ProjectsController;
 
 /**
  * Tasks Controller
@@ -10,7 +12,18 @@ use App\Controller\AppController;
  */
 class TasksController extends AppController
 {
-
+     public $paginate = [
+        'contain' => ['Users'],
+        'limit' => 5,
+        'order' => [
+            'Tasks.created_date' => 'desc'
+        ]
+    ];
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
     /**
      * Index method
      *
@@ -18,11 +31,9 @@ class TasksController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Projects', 'Users']
-        ];
-        $this->set('tasks', $this->paginate($this->Tasks));
+        $this->set('tasks', $this->paginate());
         $this->set('_serialize', ['tasks']);
+         $this->set('_sub_title', "All tasks");
     }
 
     /**
@@ -62,6 +73,12 @@ class TasksController extends AppController
         $users = $this->Tasks->Users->find('list', ['limit' => 200]);
         $this->set(compact('task', 'projects', 'users'));
         $this->set('_serialize', ['task']);
+        $this->set('_sub_title', 'Add task');
+        
+        $projects = new ProjectsController;
+        $this->set('_all_projects', $projects->getbyuserid());
+        $users = new UsersController;
+        $this->set('_all_users', $users->getPublishUser());
     }
 
     /**
@@ -110,7 +127,7 @@ class TasksController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     public function isAuthorized($user)
-	{
+    {
 		$action = $this->request->params['action'];
 		// The add and index actions are always allowed.
 		if (in_array($action, ['index', 'add'])) {
@@ -127,5 +144,5 @@ class TasksController extends AppController
                     return true;
 		}
 		return parent::isAuthorized($user);
-	}
+    }
 }

@@ -10,7 +10,18 @@ use App\Controller\AppController;
  */
 class ProjectsController extends AppController
 {
-
+    public $paginate = [
+        'contain' => ['Users'],
+        'limit' => 5,
+        'order' => [
+            'Projects.created_date' => 'desc'
+        ]
+    ];
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
     /**
      * Index method
      *
@@ -18,10 +29,7 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
-        $this->set('projects', $this->paginate($this->Projects));
+        $this->set('projects', $this->paginate());
         $this->set('_serialize', ['projects']);
         $this->set('_sub_title','All projects');
     }
@@ -115,8 +123,7 @@ class ProjectsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
-	public function isAuthorized($user)
-	{
+    public function isAuthorized($user){
 		$action = $this->request->params['action'];
 		// The add and index actions are always allowed.
 		if (in_array($action, ['index', 'add'])) {
@@ -136,5 +143,11 @@ class ProjectsController extends AppController
                     return true;
 		}
 		return parent::isAuthorized($user);
-	}
+    }
+    
+    public function getbyuserid(){        
+        $query = $this->Projects->find()->where( ['Projects.user_id' => $this->Auth->user('id') ] )->order(['Projects.name' =>'ASC']);
+        $results = $query->toArray();
+        return $results;
+    }
 }

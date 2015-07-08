@@ -200,3 +200,17 @@ DispatcherFactory::add('ControllerFactory');
  * This is needed for matching the auto-localized string output of Time() class when parsing dates.
  */
 Type::build('datetime')->useLocaleParser();
+
+global $task_status, $task_notification_rule ;
+$task_status = array(
+    "open" => "Open",
+    "inprogress" => "In Progress",
+    "resolved" => "Resolved",
+    "closed" => "Closed"
+);
+$task_notification_rule = array(
+    "daily" => "Daily",
+    "weekly" => "Weekly",
+    "monthly" => "Monthly",
+    "dates" => "Dates",
+);
