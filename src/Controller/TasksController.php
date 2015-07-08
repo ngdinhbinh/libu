@@ -109,4 +109,23 @@ class TasksController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    public function isAuthorized($user)
+	{
+		$action = $this->request->params['action'];
+		// The add and index actions are always allowed.
+		if (in_array($action, ['index', 'add'])) {
+			return true;
+		}
+		// All other actions require an id.
+		
+		// Check that the bookmark belongs to the current user.
+		$id = $this->request->params['pass'][0];
+                
+		$task = $this->Tasks->get($id);
+               
+		if ($task->user_id == $user['id']) {
+                    return true;
+		}
+		return parent::isAuthorized($user);
+	}
 }

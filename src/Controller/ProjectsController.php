@@ -23,6 +23,7 @@ class ProjectsController extends AppController
         ];
         $this->set('projects', $this->paginate($this->Projects));
         $this->set('_serialize', ['projects']);
+        $this->set('_sub_title','All projects');
     }
 
     /**
@@ -39,7 +40,7 @@ class ProjectsController extends AppController
         ]);
         $this->set('project', $project);
         $this->set('_serialize', ['project']);
-		$this->set('_sub_title','All projects');
+	$this->set('_sub_title','Project detail');
     }
 
     /**
@@ -53,6 +54,7 @@ class ProjectsController extends AppController
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
 			$project->user_id = $this->Auth->user('id');
+                         $project->created_date = date("Y-m-d H:i:s");
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -80,7 +82,8 @@ class ProjectsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->data);
-			$project->user_id = $this->Auth->user('id');
+            $project->user_id = $this->Auth->user('id');
+           
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -120,14 +123,17 @@ class ProjectsController extends AppController
 			return true;
 		}
 		// All other actions require an id.
+               
 		if (empty($this->request->params['pass'][0])) {
-		return false;
+                    return false;
 		}
 		// Check that the bookmark belongs to the current user.
 		$id = $this->request->params['pass'][0];
+                
 		$project = $this->Projects->get($id);
+               
 		if ($project->user_id == $user['id']) {
-		return true;
+                    return true;
 		}
 		return parent::isAuthorized($user);
 	}

@@ -1,1 +1,3 @@
-<div class="message error"><?= h($message) ?></div>
+<div class="alert alert-danger">
+    <button class="close" data-dismiss="alert" type="button">×</button>
+<?= h($message) ?></div>

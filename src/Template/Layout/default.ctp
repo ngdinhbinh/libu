@@ -257,7 +257,7 @@ $cakeDescription = ' LIBU';
                 </div>
             </div>
             <!-- End Navigation -->
-			<div class="container-fluid main-content">
+            <div class="container-fluid main-content">
                 <div class="page-title">
                     <h1>
                         <?= $this->fetch('title') ?>
@@ -272,10 +272,10 @@ $cakeDescription = ' LIBU';
                             </div>
                             <div class="widget-content padded clearfix">
                                 <?= $this->Flash->render() ?>
-								<?= $this->Flash->render('auth') ?>
-								<div class="row">
-									<?= $this->fetch('content') ?>
-								</div>
+				<?= $this->Flash->render('auth') ?>
+				<div class="row">
+                                    <?= $this->fetch('content') ?>
+				</div>
                             </div>
                         </div>
                     </div>
