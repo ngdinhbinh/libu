@@ -1,0 +1,5 @@
+{
+    "require": {
+        "admad/cakephp-hybridauth": "~3.0"
+    }
+}

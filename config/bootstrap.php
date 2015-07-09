@@ -214,3 +214,5 @@ $task_notification_rule = array(
     "monthly" => "Monthly",
     "dates" => "Dates",
 );
+
+Plugin::load('ADmad/HybridAuth', ['bootstrap' => true, 'routes' => true]);

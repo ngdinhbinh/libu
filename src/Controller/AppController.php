@@ -12,6 +12,7 @@
  * @since     0.2.9
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -51,15 +52,15 @@ class AppController extends Controller
 						'username' => 'email',
 						'password' => 'password'
 					]
-				]
+				],
+                                'ADmad/HybridAuth.HybridAuth'
 			],
 			'loginAction' => [
 				'controller' => 'Users',
 				'action' => 'login'
 			],
                         'loginRedirect' => array('controller' => 'pages', 'action' => 'dashboard'),
-                        'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-			'unauthorizedRedirect' => $this->referer()
+                        'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
 		]);
 		// Allow the display action so our pages controller
 		// continues to work.

@@ -32,7 +32,7 @@ $cakeDescription = ' LIBU';
     <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            <?= $this->fetch('title') ?> - 
+            Dashboard - 
             <?= $cakeDescription ?>
         </title>
         <?= $this->Html->meta('icon') ?>

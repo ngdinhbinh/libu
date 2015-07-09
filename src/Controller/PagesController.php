@@ -63,9 +63,14 @@ class PagesController extends AppController
         }
     }
     public function dashboard(){
-        
+        $this->set('_sub_title', 'Dashboard');
     }
-    public function isAuthorized($user){
-       
+    public function beforeFilter(\Cake\Event\Event $event) {
+        if($this->Auth->user()){
+            $this->Auth->allow('dashboard');
+        }else{
+            $this->redirect(array('controller' => 'users', 'action' => 'login'));
+            
+        }
     }
 }

@@ -48,12 +48,12 @@ Router::scope('/', function ($routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'dashboard']);
-
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
+    $routes->connect('/social_login/*', array( 'controller' => 'users', 'action' => 'social_login'));
+    $routes->connect('/social_endpoint/*', array( 'controller' => 'users', 'action' => 'social_endpoint'));
     /**
      * Connect catchall routes for all controllers.
      *
@@ -77,4 +77,5 @@ Router::scope('/', function ($routes) {
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.
  */
+
 Plugin::routes();

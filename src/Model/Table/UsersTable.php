@@ -41,6 +41,10 @@ class UsersTable extends Table
         $this->hasMany('TasksUser', [
             'foreignKey' => 'user_id'
         ]);
+		$this->hasMany('SocialProfiles', [
+            'foreignKey' => 'user_id'
+        ]);
+		
     }
 
     /**
