@@ -147,7 +147,7 @@ class ProjectsController extends AppController
     
     public function getbyuserid(){        
         $query = $this->Projects->find()->where( ['Projects.user_id' => $this->Auth->user('id') ] )->order(['Projects.name' =>'ASC']);
-        $results = $query->toArray();
-        return $results;
+     
+        return $query->toArray();
     }
 }
