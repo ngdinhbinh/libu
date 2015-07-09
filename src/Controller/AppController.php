@@ -57,6 +57,8 @@ class AppController extends Controller
 				'controller' => 'Users',
 				'action' => 'login'
 			],
+                        'loginRedirect' => array('controller' => 'pages', 'action' => 'dashboard'),
+                        'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
 			'unauthorizedRedirect' => $this->referer()
 		]);
 		// Allow the display action so our pages controller
@@ -69,6 +71,6 @@ class AppController extends Controller
             return false;
 	}
         public function beforeRender(Event $event){
-            $this->set('userData', $this->Auth->user());
+            $this->set('userData', $this->Auth->user());//set userData to all view and layout
         }
 }
