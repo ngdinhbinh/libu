@@ -13,22 +13,16 @@
     <h2><?= h($attachment->id) ?></h2>
     <div class="row">
         <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Object Type') ?></h6>
-            <p><?= h($attachment->object_type) ?></p>
             <h6 class="subheader"><?= __('Attach Type') ?></h6>
             <p><?= h($attachment->attach_type) ?></p>
             <h6 class="subheader"><?= __('Url') ?></h6>
             <p><?= h($attachment->url) ?></p>
             <h6 class="subheader"><?= __('User') ?></h6>
             <p><?= $attachment->has('user') ? $this->Html->link($attachment->user->name, ['controller' => 'Users', 'action' => 'view', $attachment->user->id]) : '' ?></p>
-            <h6 class="subheader"><?= __('Description') ?></h6>
-            <p><?= h($attachment->description) ?></p>
         </div>
         <div class="large-2 columns numbers end">
             <h6 class="subheader"><?= __('Id') ?></h6>
             <p><?= $this->Number->format($attachment->id) ?></p>
-            <h6 class="subheader"><?= __('Object Id') ?></h6>
-            <p><?= $this->Number->format($attachment->object_id) ?></p>
         </div>
         <div class="large-2 columns dates end">
             <h6 class="subheader"><?= __('Created Date') ?></h6>

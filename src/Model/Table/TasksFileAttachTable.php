@@ -1,19 +1,20 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Attachment;
+use App\Model\Entity\TasksFileAttach;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Attachments Model
+ * TasksFileAttach Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Tasks
+ * @property \Cake\ORM\Association\BelongsTo $Attachments
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\HasMany $TasksFileAttach
  */
-class AttachmentsTable extends Table
+class TasksFileAttachTable extends Table
 {
 
     /**
@@ -24,14 +25,20 @@ class AttachmentsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('attachments');
+        $this->table('tasks_file_attach');
         $this->displayField('id');
         $this->primaryKey('id');
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+        $this->belongsTo('Tasks', [
+            'foreignKey' => 'task_id',
+            'joinType' => 'INNER'
         ]);
-        $this->hasMany('TasksFileAttach', [
-            'foreignKey' => 'attachment_id'
+        $this->belongsTo('Attachments', [
+            'foreignKey' => 'attachment_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -47,19 +54,15 @@ class AttachmentsTable extends Table
             ->allowEmpty('id', 'create');
             
         $validator
-            ->allowEmpty('attach_type');
+            ->add('attach_date', 'valid', ['rule' => 'datetime'])
+            ->allowEmpty('attach_date');
             
         $validator
-            ->allowEmpty('url');
-            
-        $validator
-            ->add('created_date', 'valid', ['rule' => 'datetime'])
-            ->allowEmpty('created_date');
+            ->allowEmpty('description');
 
         return $validator;
     }
-    
-    
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -69,6 +72,8 @@ class AttachmentsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['task_id'], 'Tasks'));
+        $rules->add($rules->existsIn(['attachment_id'], 'Attachments'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }

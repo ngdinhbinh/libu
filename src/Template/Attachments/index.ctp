@@ -11,8 +11,6 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('object_id') ?></th>
-            <th><?= $this->Paginator->sort('object_type') ?></th>
             <th><?= $this->Paginator->sort('attach_type') ?></th>
             <th><?= $this->Paginator->sort('url') ?></th>
             <th><?= $this->Paginator->sort('user_id') ?></th>
@@ -24,8 +22,6 @@
     <?php foreach ($attachments as $attachment): ?>
         <tr>
             <td><?= $this->Number->format($attachment->id) ?></td>
-            <td><?= $this->Number->format($attachment->object_id) ?></td>
-            <td><?= h($attachment->object_type) ?></td>
             <td><?= h($attachment->attach_type) ?></td>
             <td><?= h($attachment->url) ?></td>
             <td>

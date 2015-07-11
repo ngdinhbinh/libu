@@ -4,9 +4,9 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Attachment Entity.
+ * TasksFileAttach Entity.
  */
-class Attachment extends Entity
+class TasksFileAttach extends Entity
 {
 
     /**
@@ -15,10 +15,13 @@ class Attachment extends Entity
      * @var array
      */
     protected $_accessible = [
-        'attach_type' => true,
-        'url' => true,
+        'task_id' => true,
+        'attachment_id' => true,
+        'attach_date' => true,
         'user_id' => true,
-        'created_date' => true,
+        'description' => true,
+        'task' => true,
+        'attachment' => true,
         'user' => true,
     ];
 }

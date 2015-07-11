@@ -158,7 +158,7 @@ class UsersController extends AppController {
     }
 
     public function getPublishUser() {
-        $query = $this->Users->find()->where(['Users.status' => 'active'])->order(['Users.firstname' => 'ASC']);
+        $query = $this->Users->find()->where(['Users.status' => 'active', "Users.id NOT IN" => $this->Auth->user('id') ])->order(['Users.firstname' => 'ASC']);
         return $query->toArray();
     }
 

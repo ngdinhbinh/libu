@@ -260,9 +260,15 @@ body.login2 {
       body.login2 .login-wrapper .social-login .facebook {
         background-color: #335397;
         border-color: #335397; }
+		body.login2 .login-wrapper .social-login .google {
+        background-color: #DC4A3D;
+        border-color: #DC4A3D; }
         body.login2 .login-wrapper .social-login .facebook:hover {
           background-color: transparent;
           color: #335397; }
+		  body.login2 .login-wrapper .social-login .google:hover {
+          background-color: transparent;
+          color: #DC4A3D; }
       body.login2 .login-wrapper .social-login .twitter {
         background-color: #00c7f7;
         border-color: #00c7f7; }
@@ -2345,8 +2351,7 @@ input[type="text"] {
 /*  select2 Dropdowns */
 /*----------------------------------------------------------------------------------- */
 .select2-container {
-  width: 100%;
-  height: 36px; }
+  width: 100%; }
   .select2-container .select2-choice {
     height: 100%; }
     .select2-container .select2-choice > .select2-chosen {
@@ -3703,3 +3708,51 @@ body.fourofour {
 .actions.columns{display:none !important; }
 .pagination>li a{margin-right: 5px;}
 .pagination>li:last-child a{margin-right: 0;}
+
+.fileupload-container{
+    text-align: center;
+  border: 1px solid #e9e9e9;
+  border-radius: 3px;
+  margin: 15px 0 0 ;
+  height: 145px;
+  position:relative;
+}
+.fileupload-container p.loading{
+      padding: 0;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;  height: 30px;
+}
+.fileupload-container a{
+      display: block;position:relative;  width: 100%;
+  height: 100%;
+}
+.fileupload-container a span.file-attach{
+    position:absolute;
+    margin:auto;
+    top:0;bottom:0;  height: 70px;right:0;left:0;
+}
+.fileupload-container a span.file-attach:before{
+      font-family: FontAwesome;
+      content: "\f0f6";  font-size: 40px;
+}
+.fileupload-container a img{
+    width: auto;
+  max-height: 145px;
+}
+.attach-info{overflow: hidden;  padding: 15px 5px;  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;}
+
+#container-image-uploaded > div:hover .fileupload-container, #container-image-uploaded > div:hover .attach-info{
+    background: #f0f0f0;;
+}
+.attach-delete{float:right;cursor:pointer;  visibility: hidden;}
+#container-image-uploaded > div:hover .attach-delete{  visibility: visible;}
+.attach-delete:before{
+   
+    font-family: FontAwesome;
+      content: "\f014";  font-size: 15px;
+}

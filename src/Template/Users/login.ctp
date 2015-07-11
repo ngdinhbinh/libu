@@ -22,7 +22,7 @@
     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Log in">
     <div class="social-login clearfix">
         <a class="btn btn-primary pull-left facebook" href="<?= $this->Url->build([ "controller" => "users", "action" => "social_login"] ); ?>/Facebook"><i class="fa fa-facebook"></i>Login with facebook</a>
-        <a class="btn btn-primary pull-right twitter" href="<?= $this->Url->build([ "controller" => "users", "action" => "social_login"] ); ?>/Google"><i class="fa fa-twitter"></i>Login with twitter</a>
+        <a class="btn btn-primary pull-right google" href="<?= $this->Url->build([ "controller" => "users", "action" => "social_login"] ); ?>/Google"><i class="fa fa-google"></i>Login with G+</a>
     </div>
          
 </form>

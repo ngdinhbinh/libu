@@ -18,13 +18,10 @@ class AttachmentsFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'id' => ['type' => 'biginteger', 'length' => 20, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'object_id' => ['type' => 'biginteger', 'length' => 20, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'object_type' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => 'task', 'comment' => '', 'precision' => null, 'fixed' => null],
         'attach_type' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'url' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'user_id' => ['type' => 'biginteger', 'length' => 20, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created_date' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'description' => ['type' => 'string', 'length' => 500, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
             'user_key' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
         ],
@@ -47,13 +44,10 @@ class AttachmentsFixture extends TestFixture
     public $records = [
         [
             'id' => '',
-            'object_id' => '',
-            'object_type' => 'Lorem ipsum dolor sit amet',
             'attach_type' => 'Lorem ipsum dolor sit amet',
             'url' => 'Lorem ipsum dolor sit amet',
             'user_id' => '',
-            'created_date' => '2015-07-07 02:02:38',
-            'description' => 'Lorem ipsum dolor sit amet'
+            'created_date' => '2015-07-11 03:43:10'
         ],
     ];
 }

@@ -7,7 +7,7 @@
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "project_id" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('project_id') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "to_user" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('to_user') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "cc_user" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('cc_user') ?></th>
-                <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "allow_attachment" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('allow_attachment') ?></th>
+                
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "notification_type" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('notification_type') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "status" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('status') ?></th>
                 <th><?= __('Actions') ?></th>
@@ -23,7 +23,6 @@
                 </td>
                 <td><?= $this->Number->format($task->to_user) ?></td>
                 <td><?= $this->Number->format($task->cc_user) ?></td>
-                <td><?= h($task->allow_attachment) ?></td>
                 <td><?= h($task->notification_type) ?></td>
                  <td><?= h($task->status) ?></td>
                 <td class="actions">

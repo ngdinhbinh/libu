@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\AttachmentsController;
+use App\Controller\TasksFileAttachController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\AttachmentsController Test Case
+ * App\Controller\TasksFileAttachController Test Case
  */
-class AttachmentsControllerTest extends IntegrationTestCase
+class TasksFileAttachControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,14 +16,16 @@ class AttachmentsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.attachments',
-        'app.users',
-        'app.comments',
+        'app.tasks_file_attach',
         'app.tasks',
         'app.projects',
+        'app.users',
+        'app.comments',
         'app.tasks_user',
         'app.social_profiles',
-        'app.social_networks'
+        'app.social_networks',
+        'app.attachments',
+        'app.objects'
     ];
 
     /**

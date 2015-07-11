@@ -20,7 +20,8 @@
     </div>
     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
     <div class="social-login clearfix">
-        <a class="btn btn-primary pull-left facebook" href="index.html"><i class="fa fa-facebook"></i>Sign up with facebook</a><a class="btn btn-primary pull-right twitter" href="index.html"><i class="fa fa-twitter"></i>Sign up with twitter</a>
+        <a class="btn btn-primary pull-left facebook" href="<?= $this->Url->build([ "controller" => "users", "action" => "social_login"] ); ?>/Facebook"><i class="fa fa-facebook"></i>Sign up with facebook</a>
+        <a class="btn btn-primary pull-right google" href="<?= $this->Url->build([ "controller" => "users", "action" => "social_login"] ); ?>/Google"><i class="fa fa-google"></i>Sign up with G+</a>
     </div>
     <p>
         Already have an account?

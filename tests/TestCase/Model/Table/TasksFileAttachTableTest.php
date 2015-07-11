@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\AttachmentsTable;
+use App\Model\Table\TasksFileAttachTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\AttachmentsTable Test Case
+ * App\Model\Table\TasksFileAttachTable Test Case
  */
-class AttachmentsTableTest extends TestCase
+class TasksFileAttachTableTest extends TestCase
 {
 
     /**
@@ -17,14 +17,16 @@ class AttachmentsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.attachments',
-        'app.users',
-        'app.comments',
+        'app.tasks_file_attach',
         'app.tasks',
         'app.projects',
+        'app.users',
+        'app.comments',
         'app.tasks_user',
         'app.social_profiles',
-        'app.social_networks'
+        'app.social_networks',
+        'app.attachments',
+        'app.objects'
     ];
 
     /**
@@ -35,8 +37,8 @@ class AttachmentsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Attachments') ? [] : ['className' => 'App\Model\Table\AttachmentsTable'];
-        $this->Attachments = TableRegistry::get('Attachments', $config);
+        $config = TableRegistry::exists('TasksFileAttach') ? [] : ['className' => 'App\Model\Table\TasksFileAttachTable'];
+        $this->TasksFileAttach = TableRegistry::get('TasksFileAttach', $config);
     }
 
     /**
@@ -46,7 +48,7 @@ class AttachmentsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Attachments);
+        unset($this->TasksFileAttach);
 
         parent::tearDown();
     }

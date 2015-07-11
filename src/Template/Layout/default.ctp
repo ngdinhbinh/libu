@@ -79,7 +79,8 @@ $cakeDescription = ' LIBU';
         <?= $this->Html->script('jquery.inputmask.min.js') ?>
         <?= $this->Html->script('jquery.validate.js') ?>
         <?= $this->Html->script('bootstrap-fileupload.js') ?>
-        <?= $this->Html->script('bootstrap-datepicker.js') ?>
+       
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
         <?= $this->Html->script('bootstrap-timepicker.js') ?>
         <?= $this->Html->script('bootstrap-colorpicker.js') ?>
         <?= $this->Html->script('bootstrap-switch.min.js') ?>

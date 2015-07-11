@@ -17,13 +17,10 @@
     <fieldset>
         <legend><?= __('Edit Attachment') ?></legend>
         <?php
-            echo $this->Form->input('object_id');
-            echo $this->Form->input('object_type');
             echo $this->Form->input('attach_type');
             echo $this->Form->input('url');
             echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
             echo $this->Form->input('created_date');
-            echo $this->Form->input('description');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
