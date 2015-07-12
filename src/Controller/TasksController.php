@@ -35,7 +35,23 @@ class TasksController extends AppController {
      * @return void
      */
     public function index() {
-        $this->set('tasks', $this->paginate());
+        $query = $this->Tasks->find()
+                                ->select(['tasks.id', 'tasks.name', 'p.id', 'p.name','u.id', 'u.name',  'tasks.notification_type', 'tasks.status'])
+                                ->hydrate(true)
+                                ->join([
+                                    'p' => [
+                                        'table' => 'projects',
+                                        'type' => 'left',
+                                        'conditions' => 'p.id = tasks.project_id ',
+                                    ],
+                                    'u' => [
+                                        'table' => 'users',
+                                        'type' => 'left',
+                                        'conditions' => 'u.id = tasks.to_user',
+                                    ]
+                                ])
+                                ->where(['tasks.user_id' => $this->Auth->user('id')]);
+        $this->set('tasks', $this->paginate($query));
         $this->set('_serialize', ['tasks']);
         $this->set('_sub_title', "All tasks");
     }
@@ -66,13 +82,14 @@ class TasksController extends AppController {
             $task = $this->Tasks->patchEntity($task, $this->request->data);
 
 
-
             $task->user_id = $this->Auth->user('id');
             $task->name = $this->request->data['name'];
             $task->project_id = $this->request->data['project_id'];
             $task->to_user = $this->request->data['to_user'];
             $task->cc_user = $this->request->data['cc_user'];
             $task->subject = $this->request->data['subject'];
+            
+            
             $task->notification_type = $this->request->data['notification_type'];
             if ($task->notification_type == 'weekly') {
                 $notification_value = $this->request->data['notification_value_weekly'];
@@ -91,6 +108,20 @@ class TasksController extends AppController {
 
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
+                //Add attach_id
+                if( $this->request->data('attach_id')!== NULL ) {
+                    $attach_id = $this->request->data['attach_id'];
+                    foreach($attach_id as $att_id){
+                        $TasksFileAttachTable = TableRegistry::get('TasksFileAttach');
+                        $fileAttach = $TasksFileAttachTable->newEntity();
+                        $fileAttach->user_id = $this->Auth->user('id');
+                        $fileAttach->task_id = $task->id;
+                        $fileAttach->attachment_id = $att_id;
+                        $fileAttach->attach_date = date('Y-m-d H:i:s');
+                        $fileAttach->description = '';
+                        $TasksFileAttachTable->save($fileAttach);
+                    }
+                }
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The task could not be saved. Please, try again.'));

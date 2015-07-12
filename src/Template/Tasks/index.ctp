@@ -6,8 +6,7 @@
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "name" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('name') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "project_id" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('project_id') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "to_user" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('to_user') ?></th>
-                <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "cc_user" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('cc_user') ?></th>
-                
+               
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "notification_type" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('notification_type') ?></th>
                 <th class="<?php if( isset( $_GET["sort"] ) && $_GET["sort"] == "status" ): echo $_GET["direction"] == "asc" ? "sorting_asc" : "sorting_desc"; else: echo "sorting"; endif;  ?>"><?= $this->Paginator->sort('status') ?></th>
                 <th><?= __('Actions') ?></th>
@@ -16,19 +15,25 @@
 	<tbody role="alert">
 	<?php $i=0; foreach ($tasks as $task): ?>
             <tr class="<?php echo $i % 2 == 0 ? "odd" : "even";  ?>">
-                <td><?= $this->Number->format($task->id) ?></td>
-                <td><?= h($task->name) ?></td>
+                <?php $_task = $task['tasks']; ?>
+                <?php $project = $task['p']; ?>
+                <?php $to_user = $task['u']; ?>
+               
+                <td><?= $this->Number->format($_task['id']) ?></td>
                 <td>
-                    <?= $task->has('project') ? $this->Html->link($task->project->name, ['controller' => 'Projects', 'action' => 'view', $task->project->id]) : '' ?>
+                     <a href='<?php echo $this->Url->build([ 'controller'=>'tasks', 'action'=> 'view', $_task['id']]) ?>'><?= h($_task['name']) ?></a>
                 </td>
-                <td><?= $this->Number->format($task->to_user) ?></td>
-                <td><?= $this->Number->format($task->cc_user) ?></td>
-                <td><?= h($task->notification_type) ?></td>
-                 <td><?= h($task->status) ?></td>
+                <td>
+                   <a href='<?php echo $this->Url->build([ 'controller'=>'projects', 'action'=> 'view', $project['id']]) ?>'><?= h($project['name']) ?></a>
+                </td>
+                <td><?= $to_user['name'] ?></td>
+               
+                <td><?= h($_task['notification_type']) ?></td>
+                 <td><?= h($_task['status']) ?></td>
                 <td class="actions">
-                     <?= $this->Html->link( __(''), ['action' => 'view', $task->id], array( 'class' => 'table-actions fa fa-eye' ) ) ?>
-                    <?= $this->Html->link(__(''), ['action' => 'edit', $task->id] , array( 'class' => 'table-actions fa fa-pencil' )) ?>
-                    <?= $this->Form->postLink(__(''), ['action' => 'delete', $task->id],  array( 'class' => 'table-actions fa fa-trash-o' ), ['confirm' => __('Are you sure you want to delete "{0}"?', $task->name)] ) ?>
+                     <?= $this->Html->link( __(''), ['action' => 'view', $_task['id'] ], array( 'class' => 'table-actions fa fa-eye' ) ) ?>
+                    <?= $this->Html->link(__(''), ['action' => 'edit', $_task['id'] ] , array( 'class' => 'table-actions fa fa-pencil' )) ?>
+                    <?= $this->Form->postLink(__(''), ['action' => 'delete', $_task['id'] ],  array( 'class' => 'table-actions fa fa-trash-o' ), ['confirm' => __('Are you sure you want to delete "{0}"?', $_task['name'] )] ) ?>
                    
                 </td>
             </tr>
