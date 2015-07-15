@@ -109,4 +109,19 @@ class CommentsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    public function getcomment($task_id){
+        $query = $this->Comments->find()
+                ->select(['Comments.id', 'Comments.name', 'Comments.created_date', 'u.id', 'u.name'])
+                ->hydrate(true)
+                ->join([
+                    'u' => [
+                        'table' => 'users',
+                        'type' => 'inner',
+                        'conditions' => 'u.id = Comments.user_id ',
+                    ]
+                ])
+                ->where(["Comments.task_id"=>$task_id])
+                ->order(["Comments.created_date"=>"desc"]);
+         return $query->toArray();
+    }
 }

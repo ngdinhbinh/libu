@@ -268,10 +268,19 @@ $cakeDescription = ' LIBU';
                 <div class="row">
                     <!-- Basic Table -->
                     <div class="col-lg-12">
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#"></a><i class="fa fa-home"></i>
+                            </li>
+                            <li>
+                                <a href="#"> <?= $this->fetch('title') ?></a>
+                            </li>
+                            <li class="active">
+                                 All
+                            </li>
+                        </ul>
                         <div class="widget-container fluid-height clearfix">
-                            <div class="heading">
-                                <i class="fa fa-table"></i><?= $this->get('_sub_title'); ?>
-                            </div>
+                            
                             <div class="widget-content padded clearfix">
                                 <?= $this->Flash->render() ?>
                                 <?= $this->Flash->render('auth') ?>

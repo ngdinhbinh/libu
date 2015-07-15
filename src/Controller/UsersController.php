@@ -227,5 +227,10 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('Unknown Error could not verify the user: ' . $this->Auth->user('username')));
         }
     }
-
+    
+    public function getUser($user_id){
+        $query = $this->Users->find()
+                    ->where(["Users.id"=>$user_id]);
+        return $query->toArray();
+    }
 }

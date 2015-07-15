@@ -1,6 +1,4 @@
-
 <div class="col-md-12">
-
     <form enctype="multipart/form-data" action="<?= $this->Url->build([ "controller" => "tasks", "action" => "add"]); ?>" id="validateform" method="post" class="form-horizontal" >
         <fieldset>
             <div class="row">
@@ -27,7 +25,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="to_user">To</label>
+                        <label class="control-label col-md-2" for="to_user">Assignee</label>
                         <div class="col-md-7">
 
                             <select name="to_user" id="to_user" class="select2able">
@@ -140,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label class="control-label col-md-2" for="status">Status</label>
                         <div class="col-md-7">
                             <select name="status" id="status" class="form-control" >
@@ -153,7 +151,7 @@
                                 ?>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label class="control-label col-md-2" ></label>
                         <div class="col-md-7">
@@ -174,7 +172,7 @@
             var card_image = '<div class="col-sm-4" id="card-img-' + i + '"><div class="fileupload-container">';
             card_image += '<p class="loading"><i></i><span><?php echo __('Uploading...'); ?></span></p>';
             card_image += '</div></div>';
-            jQuery("#container-image-uploaded").append(card_image);
+            jQuery("#container-image-uploaded").prepend(card_image);
         }
         var j = 0;
 
@@ -200,7 +198,28 @@
             });
 
         }
-    })
+    });
+   function remove_attach(me){
+        var x = confirm("Are you sure want to remove this?");
+        if(x){
+            var attach_id = $(me).prev("input[type='hidden']").val();
+            var fileattach_id = $(me).next("input[type='hidden']").val();
+            formdata = new FormData();
+            formdata.append("attach_id", attach_id);
+            formdata.append("fileattach_id", fileattach_id);
+            $.ajax({
+                url: "<?= $this->Url->build( ["controller"=> "tasks", "action"=>"removeattach"] ) ?>",
+                method: "POST",
+                data: formdata,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(res){
+                    $(me).closest('div.col-sm-4').remove();
+                }
+            });
+        }
+    }
     $(document).ready(function () {
         $("#monthly, #dates, #weekly ").hide();
         $("#notification_type").change(function () {
@@ -226,16 +245,19 @@
         $("#validateform").submit(function () {
             $("#subject").html($("div.note-editable").html());
             return true;
-        })
+        });
+       
     })
     $("#validateform").validate({
         rules: {
             name: "required",
-            project_key: "required",
+            project_id : "required",
+            notification_type: "required"
         },
         messages: {
             name: "Please enter Tasks name",
-            lastname: "Please enter Project Key"
+            project_id: "Please select Project",
+            notification_type: "Please select Notification type"
         }
     });
 </script>

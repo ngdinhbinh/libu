@@ -29,7 +29,7 @@
                 <td><?= $to_user['name'] ?></td>
                
                 <td><?= h($_task['notification_type']) ?></td>
-                 <td><?= h($_task['status']) ?></td>
+                 <td><?= $this->Libu->buildStatus($_task['status']); ?></td>
                 <td class="actions">
                      <?= $this->Html->link( __(''), ['action' => 'view', $_task['id'] ], array( 'class' => 'table-actions fa fa-eye' ) ) ?>
                     <?= $this->Html->link(__(''), ['action' => 'edit', $_task['id'] ] , array( 'class' => 'table-actions fa fa-pencil' )) ?>

@@ -13,8 +13,8 @@
 	<tbody role="alert">
 	<?php $i=0; foreach ($projects as $project): ?>
             <tr class="<?php echo $i % 2 == 0 ? "odd" : "even";  ?>">
-                <td><?= $this->Number->format($project->id) ?></td>
-                <td><?= h($project->name) ?></td>
+                <td><a title="Edit" href="<?= $this->Url->build([ "controller"=>"projects", "action"=>"edit", $this->Number->format($project->id) ]) ?>"><?= $this->Number->format($project->id) ?></a></td>
+                <td><a title="Edit" href="<?= $this->Url->build([ "controller"=>"projects", "action"=>"view", $this->Number->format($project->id) ]) ?>"><?= h($project->name) ?></a></td>
                 <td><?= h($project->created_date) ?></td>
                 <td><?= h($project->project_key) ?></td>
                 <td>

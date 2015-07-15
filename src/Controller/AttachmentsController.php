@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use App\Controller\TasksFileAttachController;
+use Cake\ORM\TableRegistry;
 /**
  * Attachments Controller
  *
@@ -105,9 +106,9 @@ class AttachmentsController extends AppController {
 
     public function upload() {
         $this->layout = 'ajax';
-        
-        $folder = "uploads/".$this->Auth->user('id');
-        
+
+        $folder = "uploads/" . $this->Auth->user('id');
+
         // setup dir names absolute and relative
         $folder_url = WWW_ROOT . $folder;
         if (!is_dir($folder_url)) {
@@ -115,19 +116,19 @@ class AttachmentsController extends AppController {
         }
         $rel_url = $folder;
         $file = $this->request->data;
-              $item = $file['item'];
+        $item = $file['item'];
         $file = $file['images'][0];
-  
-        
+
+
         $filename = str_replace(' ', '_', $file['name']);
         // assume filetype is false
         // check filename already exists
         //if (!file_exists($folder_url . '/' . $filename)) {
-            // create full filename
-            $full_url = $folder_url . '/' . $filename;
-            $url = $rel_url . '/' . $filename;
-            // upload the file
-            $success = move_uploaded_file($file['tmp_name'], $url);
+        // create full filename
+        $full_url = $folder_url . '/' . $filename;
+        $url = $rel_url . '/' . $filename;
+        // upload the file
+        $success = move_uploaded_file($file['tmp_name'], $url);
         //} 
 //        else {
 //            // create unique filename and upload file
@@ -141,19 +142,31 @@ class AttachmentsController extends AppController {
         if ($success) {
             //Add to table
             $attachment = $this->Attachments->newEntity();
+            $attachment->name = $file['name'];
             $attachment->attach_type = $file['type'];
             $attachment->user_id = $this->Auth->user('id');
             $attachment->url = $url;
             $attachment->created_date = date('Y-m-d H:i:s');
             $attach_result = $this->Attachments->save($attachment);
-            
+         
+            if ( $this->request->data('task_id')  ) {
+               
+                $TasksFileAttachTable = TableRegistry::get('TasksFileAttach');
+                $fileAttach = $TasksFileAttachTable->newEntity();
+                $fileAttach->user_id = $this->Auth->user('id');
+                $fileAttach->task_id = $this->request->data['task_id'];
+                $fileAttach->attachment_id = $attach_result->id;
+                $fileAttach->attach_date = date('Y-m-d H:i:s');
+                $this->set('fileacttach', $fileAttach);
+                $fileattch_result = $TasksFileAttachTable->save($fileAttach);
+                $this->set('taskfileattach_id',$fileattch_result->id);
+            }
             // save the url of the file
             $result['attach']['id'] = $attach_result->id;
             $result['attach']['url'] = $url;
             $result['attach']['name'] = $filename;
             $result['attach']['type'] = $file['type'];
             $result['attach']['date'] = $attachment->created_date;
-            
         } else {
             $result['errors'][] = "Error uploaded $filename. Please try again.";
         }

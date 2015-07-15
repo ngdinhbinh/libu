@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -8,16 +9,14 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\TasksFileAttachTable $TasksFileAttach
  */
-class TasksFileAttachController extends AppController
-{
+class TasksFileAttachController extends AppController {
 
     /**
      * Index method
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Tasks', 'Attachments', 'Users']
         ];
@@ -32,8 +31,7 @@ class TasksFileAttachController extends AppController
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $tasksFileAttach = $this->TasksFileAttach->get($id, [
             'contain' => ['Tasks', 'Attachments', 'Users']
         ]);
@@ -46,8 +44,7 @@ class TasksFileAttachController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $tasksFileAttach = $this->TasksFileAttach->newEntity();
         if ($this->request->is('post')) {
             $tasksFileAttach = $this->TasksFileAttach->patchEntity($tasksFileAttach, $this->request->data);
@@ -72,8 +69,7 @@ class TasksFileAttachController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $tasksFileAttach = $this->TasksFileAttach->get($id, [
             'contain' => []
         ]);
@@ -100,8 +96,7 @@ class TasksFileAttachController extends AppController
      * @return void Redirects to index.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $tasksFileAttach = $this->TasksFileAttach->get($id);
         if ($this->TasksFileAttach->delete($tasksFileAttach)) {
@@ -111,4 +106,23 @@ class TasksFileAttachController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function getTaskAttachFile($task_id) {
+
+        $query = $this->TasksFileAttach->find()
+                ->select(['TasksFileAttach.id', 'TasksFileAttach.attach_date', 'a.name', 'a.id', 'a.attach_type', 'a.url'])
+                ->hydrate(true)
+                ->join([
+                    'a' => [
+                        'table' => 'attachments',
+                        'type' => 'left',
+                        'conditions' => 'a.id = TasksFileAttach.attachment_id ',
+                    ]
+                ])
+                ->where(['TasksFileAttach.task_id' => $task_id])
+                ->order(['TasksFileAttach.attach_date' => 'DESC']);
+        return $query->toArray();
+    }
+    
+   
 }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\ORM\TableRegistry;
 /**
  * Projects Controller
  *
@@ -43,12 +43,29 @@ class ProjectsController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function view($id = null) {
+
         $project = $this->Projects->get($id, [
             'contain' => ['Users', 'Tasks']
         ]);
         $this->set('project', $project);
         $this->set('_serialize', ['project']);
         $this->set('_sub_title', 'Project detail');
+        
+        $TasksTable = TableRegistry::get('Tasks');
+        
+        $query = $TasksTable->find()
+                ->select(['tasks.id', 'tasks.name', 'u.id', 'u.name', 'tasks.notification_type', 'tasks.status', 'tasks.notification_value', 'tasks.created_date'])
+                ->hydrate(true)
+                ->join([
+                    'u' => [
+                        'table' => 'users',
+                        'type' => 'left',
+                        'conditions' => 'u.id = tasks.to_user',
+                    ]
+                ])
+                ->where(['tasks.project_id' => $id ])
+                ->order(['tasks.created_date' => 'DESC']);
+        $this->set('tasks', $query );
     }
 
     /**
